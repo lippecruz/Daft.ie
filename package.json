@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "regression": "npx playwright test"
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test --ui",
+    "test:report": "npx playwright show-report"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@cucumber/cucumber": "^9.5.1",
-    "@playwright/test": "^1.38.0",
-    "cucumber": "^6.0.7"
+    "@playwright/test": "^1.38.1",
+    "@types/node": "^20.6.3"
   }
 }

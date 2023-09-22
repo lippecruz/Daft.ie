@@ -1,21 +1,40 @@
-import { test } from '@playwright/test';
+import { expect, test, Page } from '@playwright/test';
 import { LandingPage } from '../PageObjects/LandingPagePo';
 import { SalesPage } from '../PageObjects/SalesPagePo';
 import { baseUrl } from '../helper';
 
-test.afterAll(async ({page}) => {
-  await page.close();
-});
+let page: Page;
+let landingPage: LandingPage;
+let salesPage: SalesPage;
 
-test('Validate Garage Keyword is present when filter is applied', async ({ page }) => {
-  const landingPage = new LandingPage(page);
-  const salesPage = new SalesPage(page);
+test.describe('Given a user on Daft.ie landing page', async () => {
+  test.beforeEach(async ({ page }) => {    
+    landingPage = new LandingPage(page);
+    salesPage = new SalesPage(page);
 
-  await page.goto(baseUrl);
-  await landingPage.acceptCookies.click();
-  await landingPage.SearchDublin();
+    // Open landing page
+    await page.goto(baseUrl);
+    await landingPage.acceptCookies.click();
+  });
 
-  await salesPage.ApplyGarageFilter();
-  await salesPage.ValidateFilter();
+  test.describe('When the user applies a filter', async () => {
+    test.beforeEach(async () => {
+      // Search
+      await landingPage.SearchDublin();
+      // Apply filter
+      await salesPage.applyFilter("garage");
+    });
+    
+    test('the correct URL is displayed', async ({ page }) => {
+      expect(page.url()).toContain(`${baseUrl}/property-for-sale/dublin-city?terms=garage`);
+    });
+
+    test('the correct search is returned', async () => {
+      await salesPage.firstProperty.click();
+
+      await expect(await salesPage.propDescription).toContainText("garage");
+      await expect(await salesPage.propFeatures).toContainText("Garage");
+    });
+  });
 });
 
