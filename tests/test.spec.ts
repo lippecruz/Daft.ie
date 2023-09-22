@@ -11,13 +11,6 @@ test('Validate Garage Keyword is present when filter is applied', async ({ page 
   await landingPage.SearchDublin();
 
   await salesPage.ApplyGarageFilter();
-  await salesPage.firstProperty.click();
-  const paragraphText = await salesPage.propDescription.textContent();
-
-  if (paragraphText.includes("garage")) {
-    console.log(`Element contains the expected text`);
-  } else {
-    throw new Error(`Element does not contain the expected text`);
-  }
+  await salesPage.ValidateFilter();
 });
 

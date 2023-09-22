@@ -19,6 +19,21 @@ class SalesPage
         await this.txtKeywordSearch.press("Enter");
         await this.btnShowResults.click();
     }
+
+    async ValidateFilter()
+    {
+        const url = 'https://www.daft.ie/property-for-sale/dublin-city?terms=Garage';
+        await this.page.waitForURL(url);
+        await this.firstProperty.click();
+        const paragraphText = await this.propDescription.textContent();
+
+        if (paragraphText.includes("garage")) {
+        console.log(`Element contains the expected text`);
+        } else {
+        throw new Error(`Element does not contain the expected text`);
+        }
+        this.page.close();
+    }
 }
 
 module.exports = {SalesPage};
