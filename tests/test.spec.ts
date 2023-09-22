@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { LandingPage } from '../PageObjects/LandingPagePo';
 import { SalesPage } from '../PageObjects/SalesPagePo';
 import { baseUrl } from '../helper';

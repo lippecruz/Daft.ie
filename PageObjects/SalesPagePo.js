@@ -26,11 +26,11 @@ class SalesPage {
         const featureText = await this.propFeatures.textContent();
 
 
-        function checkTextContains(text, expectedSubstring) {
-            if (text.includes(expectedSubstring)) {
-                console.log(`Element contains the expected text: ${expectedSubstring}`);
+        function checkTextContains(text, expectedText) {
+            if (text.includes(expectedText)) {
+                console.log(`Element contains the expected text`);
             } else {
-                throw new Error(`Element does not contain the expected text: ${expectedSubstring}`);
+                throw new Error(`Element does not contain the expected text`);
             }
         }
 
